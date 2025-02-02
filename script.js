@@ -1,28 +1,40 @@
 function calculatePrice() {
-    // Get input values
-    const cost = parseFloat(document.getElementById('cost').value);
-    const grossProfit = parseFloat(document.getElementById('gross-profit').value);
-    const includeGST = document.getElementById('gst').value === 'yes';
-
-    // Basic validation
-    if (isNaN(cost) || isNaN(grossProfit) || cost < 0 || grossProfit < 0) {
-        alert('Please enter valid positive numbers');
+    // Get input elements
+    const costInput = document.getElementById('cost');
+    const profitInput = document.getElementById('profit');
+    const gstSelect = document.getElementById('gst');
+    
+    // Get values
+    const cost = parseFloat(costInput.value);
+    const profit = parseFloat(profitInput.value);
+    const includeGST = gstSelect.value === 'yes';
+    
+    // Validate inputs
+    if (isNaN(cost) || cost < 0) {
+        alert('Please enter a valid product cost');
+        return;
+    }
+    
+    if (isNaN(profit) || profit < 0) {
+        alert('Please enter a valid profit amount');
         return;
     }
 
     // Calculate base price
-    let sellingPrice = cost + grossProfit;
-
+    let sellingPrice = cost + profit;
+    
     // Add GST if required
     if (includeGST) {
         sellingPrice *= 1.15;
     }
 
-    // Calculate gross profit margin
-    const grossProfitMargin = (grossProfit / sellingPrice) * 100;
+    // Calculate profit margin
+    const profitMargin = (profit / sellingPrice) * 100;
 
-    // Display results
-    document.getElementById('results').style.display = 'block';
-    document.getElementById('selling-price').textContent = `$${sellingPrice.toFixed(2)}`;
-    document.getElementById('gpm').textContent = `${grossProfitMargin.toFixed(1)}%`;
+    // Update results
+    document.getElementById('sellingPrice').textContent = `$${sellingPrice.toFixed(2)}`;
+    document.getElementById('profitMargin').textContent = `${profitMargin.toFixed(1)}%`;
+    
+    // Show results
+    document.querySelector('.results').style.display = 'block';
 }

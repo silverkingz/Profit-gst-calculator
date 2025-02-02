@@ -1,71 +1,28 @@
-body {
-    font-family: 'Arial', sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f5e6d3;
-}
+function calculatePrice() {
+    // Get input values
+    const cost = parseFloat(document.getElementById('cost').value);
+    const grossProfit = parseFloat(document.getElementById('gross-profit').value);
+    const includeGST = document.getElementById('gst').value === 'yes';
 
-.calculator {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
-}
+    // Basic validation
+    if (isNaN(cost) || isNaN(grossProfit) || cost < 0 || grossProfit < 0) {
+        alert('Please enter valid positive numbers');
+        return;
+    }
 
-h1, h2 {
-    color: #8b572a;
-    text-align: center;
-}
+    // Calculate base price
+    let sellingPrice = cost + grossProfit;
 
-.input-group {
-    margin-bottom: 20px;
-}
+    // Add GST if required
+    if (includeGST) {
+        sellingPrice *= 1.15;
+    }
 
-label {
-    display: block;
-    margin-bottom: 5px;
-    color: #666;
-}
+    // Calculate gross profit margin
+    const grossProfitMargin = (grossProfit / sellingPrice) * 100;
 
-input, select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #8b572a;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button:hover {
-    background-color: #6a4120;
-}
-
-.results {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #f8f8f8;
-    border-radius: 5px;
-    display: none;
-}
-
-.results p {
-    font-size: 18px;
-    color: #333;
-    margin: 10px 0;
-}
-
-.results span {
-    font-weight: bold;
-    color: #8b572a;
+    // Display results
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('selling-price').textContent = `$${sellingPrice.toFixed(2)}`;
+    document.getElementById('gpm').textContent = `${grossProfitMargin.toFixed(1)}%`;
 }

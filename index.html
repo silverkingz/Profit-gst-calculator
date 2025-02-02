@@ -3,33 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NZ Bakery Price Calculator</title>
+    <title>NZ Bakery Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="calculator">
-        <h1>Bakery Pricing Calculator</h1>
+        <h1>Bakery Price Calculator</h1>
+        
         <div class="input-group">
             <label for="cost">Product Cost (NZ$):</label>
-            <input type="number" id="cost" step="0.01" required>
+            <input type="number" id="cost" step="0.01" min="0" required>
         </div>
+        
         <div class="input-group">
-            <label for="gross-profit">Desired Gross Profit (NZ$):</label>
-            <input type="number" id="gross-profit" step="0.01" required>
+            <label for="profit">Desired Profit (NZ$):</label>
+            <input type="number" id="profit" step="0.01" min="0" required>
         </div>
+        
         <div class="input-group">
-            <label for="gst">Include GST (15%):</label>
+            <label for="gst">Include GST:</label>
             <select id="gst">
-                <option value="yes">Yes</option>
+                <option value="yes">Yes (15%)</option>
                 <option value="no">No</option>
             </select>
         </div>
+        
         <button onclick="calculatePrice()">Calculate Price</button>
         
-        <div class="results" id="results">
-            <h2>Pricing Results</h2>
-            <p>Selling Price (RSP): <span id="selling-price">$0.00</span></p>
-            <p>Gross Profit Margin: <span id="gpm">0%</span></p>
+        <div class="results">
+            <h2>Results</h2>
+            <p>Selling Price: <span id="sellingPrice">$0.00</span></p>
+            <p>Profit Margin: <span id="profitMargin">0%</span></p>
         </div>
     </div>
 
